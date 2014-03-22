@@ -26,7 +26,7 @@ namespace graf_bib {
            const Matriz matrizRep;
 
         public:
-            grafo (std::vector < std::vector <int> > matrixGrafo);
+            grafo (Matriz matrixGrafo);
 
             unsigned int retNumVertices();
             unsigned int retNumArestas();
