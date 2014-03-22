@@ -14,13 +14,13 @@ using namespace std;
 graf_bib::grafo::grafo( vector < vector <int> > matrixGrafo ) 
     : matrizRep(matrixGrafo) {
     
-    numVertices = matrizRep.size() * matrizRep[0].size();
+    numVertices = matrizRep.size() * matrizRep.begin()->size();
     
     for(vector< vector<int> >::const_iterator it = matrizRep.begin(); 
             it != matrizRep.end(); 
             ++it) {
         
-        if(it->size()!= numVertices)
+        if(it->size()!= matrizRep.size())
             throw onError("Tamanho matriz");
     }
 }
