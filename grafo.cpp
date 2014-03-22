@@ -28,8 +28,7 @@ graf_bib::grafo::grafo( Matriz matrixGrafo )
                 it != linha->end(); 
                 ++it) {
 
-            // Isto nao trata se ha arestas para o proprio vertice
-            if(*it == 1) 
+            if(*it == 1 && (linha - matrizRep.begin()) != (it - linha->begin()) ) 
                 ++numArestas;
         }
     }

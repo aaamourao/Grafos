@@ -18,5 +18,5 @@ grafo.o: grafo.cpp
 	g++ -c grafo.cpp
 
 clean:
-	rm -rf *o trabalho_01
+	rm -rf *o .*.swp trabalho_01
 
