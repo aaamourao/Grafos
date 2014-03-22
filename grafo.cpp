@@ -11,12 +11,12 @@
 
 using namespace std;
 
-graf_bib::grafo::grafo( vector < vector <int> > matrixGrafo ) 
+graf_bib::grafo::grafo( Matriz matrixGrafo ) 
     : matrizRep(matrixGrafo) {
     
     numVertices = matrizRep.size() * matrizRep.begin()->size();
     
-    for(vector< vector<int> >::const_iterator it = matrizRep.begin(); 
+    for(Matriz::const_iterator it = matrizRep.begin(); 
             it != matrizRep.end(); 
             ++it) {
         
@@ -39,10 +39,10 @@ bool graf_bib::grafo::completo() {
 
     bool ret = true;
 
-    for(vector< vector<int> >::const_iterator linha = matrizRep.begin(); 
+    for(Matriz::const_iterator linha = matrizRep.begin(); 
             linha != matrizRep.end(); 
             ++linha) {
-        for(vector<int>::const_iterator it = linha->begin(); 
+        for(Linha::const_iterator it = linha->begin(); 
                 it != linha->end(); 
                 ++it) {
 

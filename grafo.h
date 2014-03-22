@@ -14,12 +14,16 @@
 #include <string>
 
 namespace graf_bib {
+
+    typedef std::vector< std::vector<int> > Matriz;
+    typedef std::vector<int>                Linha;
+
     class grafo {
         private:
            unsigned int numVertices;
            unsigned int numArestas;
         
-            const std::vector < std::vector <int> > matrizRep;
+           const Matriz matrizRep;
 
         public:
             grafo (std::vector < std::vector <int> > matrixGrafo);
