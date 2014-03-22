@@ -16,12 +16,22 @@ graf_bib::grafo::grafo( Matriz matrixGrafo )
     
     numVertices = matrizRep.size() * matrizRep.begin()->size();
     
-    for(Matriz::const_iterator it = matrizRep.begin(); 
-            it != matrizRep.end(); 
-            ++it) {
+    for(Matriz::const_iterator linha = matrizRep.begin(); 
+            linha != matrizRep.end(); 
+            ++linha) {
         
-        if(it->size()!= matrizRep.size())
+        if(linha->size()!= matrizRep.size())
             throw onError("Tamanho matriz");
+
+
+        for(Linha::const_iterator it = linha->begin(); 
+                it != linha->end(); 
+                ++it) {
+
+            // Isto nao trata se ha arestas para o proprio vertice
+            if(*it == 1) 
+                ++numArestas;
+        }
     }
 }
 
@@ -39,19 +49,8 @@ bool graf_bib::grafo::completo() {
 
     bool ret = true;
 
-    for(Matriz::const_iterator linha = matrizRep.begin(); 
-            linha != matrizRep.end(); 
-            ++linha) {
-        for(Linha::const_iterator it = linha->begin(); 
-                it != linha->end(); 
-                ++it) {
-
-            if(*it != 1) {
-                ret = false;
-                break;
-            }
-        }
-    }
+    if(numArestas != numVertices*(numVertices -1)/2 )
+        ret = false;
 
     return ret;
 }
