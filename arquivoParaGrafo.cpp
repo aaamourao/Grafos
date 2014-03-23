@@ -17,7 +17,8 @@ using namespace std;
 graf_bib::arquivoParaGrafo::arquivoParaGrafo(string nome_arq) 
     : nomeArq(nome_arq) {
 
-        arq.open(nome_arq.c_str());
+
+        ifstream arq(nome_arq.c_str());
 
         string linha;
         while(getline(arq, linha)) {
@@ -29,6 +30,7 @@ graf_bib::arquivoParaGrafo::arquivoParaGrafo(string nome_arq)
                     istream_iterator<int>() ));
         }
 
+        arq.close();
 }
 
 graf_bib::Matriz graf_bib::arquivoParaGrafo::retMatriz(void) {
