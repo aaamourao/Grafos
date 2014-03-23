@@ -48,6 +48,12 @@ unsigned int graf_bib::grafo::retNumArestas(void) {
     return numArestas;
 }
 
+
+graf_bib::Matriz graf_bib::grafo::retMatriz() {
+
+    return matrizRep;
+}
+
 bool graf_bib::grafo::completo(void) {
 
     bool ret = true;
@@ -85,9 +91,12 @@ bool graf_bib::grafo::completo(void) {
 
 graf_bib::Matriz graf_bib::grafo::completarGrafo(void) {
 
-    Matriz *ret = new Matriz(matrizRep);
+    Matriz *ret = NULL;
 
     if(!completo()) {
+        
+        ret = new Matriz(matrizRep);
+        
         for(Matriz::iterator linha = ret->begin(); 
                 linha != ret->end(); 
                 ++linha) {

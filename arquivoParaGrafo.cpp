@@ -36,24 +36,3 @@ graf_bib::Matriz graf_bib::arquivoParaGrafo::retMatriz(void) {
     
     return matrizGrafo;
 }
-
-string graf_bib::arquivoParaGrafo::toString(void) {
-
-    string ret = "";
-
-    for(Matriz::const_iterator linha = matrizGrafo.begin(); 
-            linha != matrizGrafo.end(); 
-            ++linha) {
-     
-        for(Linha::const_iterator it = linha->begin(); 
-                it != linha->end(); 
-                ++it) {
-
-            ret += to_string(*it) + " ";
-        }
-
-        ret += "\n";
-    }
-
-    return ret;
-}
