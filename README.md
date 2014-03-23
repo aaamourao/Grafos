@@ -14,8 +14,9 @@ Questao 1
 Verificar se grafo é completo
 --
 
--grafo 01 => Completo
--grafo 02 => Não é completo
+.grafo 01 => Completo
+
+.grafo 02 => Não é completo
 
 
 ===
@@ -25,5 +26,6 @@ Questao 2
 Completar Grafo
 --
 
--grafo 01 => Já é completo
--grafo 02 => Mostra complemento
+.grafo 01 => Já é completo
+
+.grafo 02 => Mostra complemento
