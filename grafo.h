@@ -28,13 +28,16 @@ namespace graf_bib {
         public:
             grafo (Matriz matrixGrafo);
 
-            unsigned int retNumVertices();
-            unsigned int retNumArestas();
+            unsigned int retNumVertices(void);
+            unsigned int retNumArestas(void);
+            std::string toString(void);
 
-            bool completo();
+            bool completo(void);
+            Matriz completarGrafo(void);
     };
 
     std::string onError(std::string Falha);
+    std::string toString(Matriz mGrafo);
 }
 
 #endif // GRAFO_H 

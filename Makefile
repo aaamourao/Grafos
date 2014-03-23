@@ -15,7 +15,7 @@ main.o: main.cpp
 	g++ -c main.cpp
 
 grafo.o: grafo.cpp
-	g++ -c grafo.cpp
+	g++ -std=c++11 -c grafo.cpp
 
 arquivoParaGrafo.o: arquivoParaGrafo.cpp
 	g++ -std=c++11 -c arquivoParaGrafo.cpp

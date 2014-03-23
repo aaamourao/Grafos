@@ -38,17 +38,17 @@ graf_bib::grafo::grafo( Matriz matrixGrafo )
     numArestas = numArestas/2;
 }
 
-unsigned int graf_bib::grafo::retNumVertices() {
+unsigned int graf_bib::grafo::retNumVertices(void) {
 
     return numVertices;
 }
 
-unsigned int graf_bib::grafo::retNumArestas() {
+unsigned int graf_bib::grafo::retNumArestas(void) {
     
     return numArestas;
 }
 
-bool graf_bib::grafo::completo() {
+bool graf_bib::grafo::completo(void) {
 
     bool ret = true;
 
@@ -60,10 +60,6 @@ bool graf_bib::grafo::completo() {
                 linha != matrizRep.end(); 
                 ++linha) {
         
-            if(linha->size()!= matrizRep.size())
-                throw onError("Matriz deve ser quadrada");
-
-
             for(Linha::const_iterator it = linha->begin(); 
                     it != linha->end(); 
                     ++it) {
@@ -81,6 +77,54 @@ bool graf_bib::grafo::completo() {
                         
             }
         }
+    }
+
+    return ret;
+}
+
+
+graf_bib::Matriz graf_bib::grafo::completarGrafo(void) {
+
+    Matriz *ret = new Matriz(matrizRep);
+
+    if(!completo()) {
+        for(Matriz::iterator linha = ret->begin(); 
+                linha != ret->end(); 
+                ++linha) {
+
+            for(Linha::iterator it = linha->begin(); 
+                    it != linha->end(); 
+                    ++it) {
+
+                if(*it == 0 && 
+                    (linha - ret->begin()) != (it - linha->begin()) ) 
+                    *it = 1;
+
+                else 
+                    *it = 0;
+            }
+        }
+    }
+
+    return *ret;
+}
+
+string graf_bib::toString(Matriz mGrafo) {
+
+    string ret = "";
+
+    for(Matriz::const_iterator linha = mGrafo.begin(); 
+            linha != mGrafo.end(); 
+            ++linha) {
+     
+        for(Linha::const_iterator it = linha->begin(); 
+                it != linha->end(); 
+                ++it) {
+
+            ret += to_string(*it) + " ";
+        }
+
+        ret += "\n";
     }
 
     return ret;
