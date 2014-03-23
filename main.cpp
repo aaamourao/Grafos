@@ -19,10 +19,10 @@ int main () {
     graf_bib::grafo grafo01(vMtrxGrafo01.retMatriz());
 
     cout << vMtrxGrafo01.toString() << endl;
-    if(grafo01.completo()) {
+    if(grafo01.completo()) 
         cout << "O grafo 01 e completo!" << endl;
-        cout << "======================" << endl << endl;
-    }
+    
+    cout << "======================" << endl << endl;
 
     graf_bib::arquivoParaGrafo vMtrxGrafo02("grafo02.txt");
     graf_bib::grafo grafo02(vMtrxGrafo02.retMatriz());
@@ -31,5 +31,7 @@ int main () {
     if(grafo02.completo())
         cout << "O grafo 02 e completo!" << endl;
 
+    cout << "======================" << endl << endl;
+    
     return 0;
 }
