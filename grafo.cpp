@@ -8,30 +8,35 @@
  * */
 
 #include "grafo.h"
+#include <iostream>
 
 using namespace std;
 
 graf_bib::grafo::grafo( Matriz matrixGrafo ) 
     : matrizRep(matrixGrafo) {
     
-    numVertices = matrizRep.size() * matrizRep.begin()->size();
-    
+    numVertices = matrizRep.size();
+    numArestas = 0;
+
     for(Matriz::const_iterator linha = matrizRep.begin(); 
             linha != matrizRep.end(); 
             ++linha) {
         
         if(linha->size()!= matrizRep.size())
-            throw onError("Tamanho matriz");
+            throw onError("Matriz deve ser quadrada");
 
 
         for(Linha::const_iterator it = linha->begin(); 
                 it != linha->end(); 
                 ++it) {
 
-            if(*it == 1 && (linha - matrizRep.begin()) != (it - linha->begin()) ) 
+            if(*it == 1 && 
+                    (linha - matrizRep.begin()) != (it - linha->begin()) ) 
                 ++numArestas;
         }
     }
+
+    numArestas = numArestas/2;
 }
 
 unsigned int graf_bib::grafo::retNumVertices() {
@@ -48,13 +53,14 @@ bool graf_bib::grafo::completo() {
 
     bool ret = true;
 
-    if(numArestas != numVertices*(numVertices -1)/2 )
+    if(numArestas != (numVertices*(numVertices -1))/2 )
         ret = false;
 
     return ret;
 }
 
 string graf_bib::onError( string Falha ) {
-
-    return "Erro: " + Falha;
+ 
+    cout << "Erro: " + Falha + "\n";
+    return "Erro: " + Falha + "\n";
 }
