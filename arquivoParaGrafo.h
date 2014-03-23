@@ -24,7 +24,7 @@ namespace graf_bib {
         public:
             arquivoParaGrafo(std::string nome_arq);
             Matriz retMatriz(void);
-            string toString(void);  
+            std::string toString(void);  
     };
 }
 
