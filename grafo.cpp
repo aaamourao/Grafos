@@ -8,12 +8,11 @@
  * */
 
 #include "grafo.h"
-#include <iostream>
 
 using namespace std;
 
-graf_bib::grafo::grafo( Matriz matrixGrafo ) 
-    : matrizRep(matrixGrafo) {
+graf_bib::grafo::grafo( string arquivo ) 
+    : gMatriz(arquivo) {
     
     numVertices = matrizRep.size();
     numArestas = 0;
@@ -116,31 +115,4 @@ graf_bib::Matriz graf_bib::grafo::completarGrafo(void) {
     }
 
     return *ret;
-}
-
-string graf_bib::toString(Matriz mGrafo) {
-
-    string ret = "";
-
-    for(Matriz::const_iterator linha = mGrafo.begin(); 
-            linha != mGrafo.end(); 
-            ++linha) {
-     
-        for(Linha::const_iterator it = linha->begin(); 
-                it != linha->end(); 
-                ++it) {
-
-            ret += to_string(*it) + " ";
-        }
-
-        ret += "\n";
-    }
-
-    return ret;
-}
-
-string graf_bib::onError( string Falha ) {
- 
-    cout << "Erro: " + Falha + "\n";
-    return "Erro: " + Falha + "\n";
 }

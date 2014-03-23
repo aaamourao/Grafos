@@ -8,17 +8,17 @@
  * */
 
 #include <iostream>
+
 #include "grafo.h"
-#include "arquivoParaGrafo.h"
+#include "gMatriz.h"
 
 using namespace std;
 
 int main () {
 
-    graf_bib::arquivoParaGrafo vMtrxGrafo01("grafo01.txt");
-    graf_bib::grafo grafo01(vMtrxGrafo01.retMatriz());
+    graf_bib::grafo grafo01("grafo01.txt");
 
-    cout << graf_bib::toString(vMtrxGrafo01.retMatriz()) << endl;
+    cout << graf_bib::toString(grafo01.retMatriz()) << endl;
 
 
     if(grafo01.completo()) 
@@ -30,10 +30,9 @@ int main () {
 
     cout << "======================" << endl << endl;
 
-    graf_bib::arquivoParaGrafo vMtrxGrafo02("grafo02.txt");
-    graf_bib::grafo grafo02(vMtrxGrafo02.retMatriz());
+    graf_bib::grafo grafo02("grafo02.txt");
 
-    cout << graf_bib::toString(vMtrxGrafo02.retMatriz()) << endl;
+    cout << graf_bib::toString(grafo02.retMatriz()) << endl;
     if(grafo02.completo())
         cout << "O grafo 02 e completo!" << endl;
     else {

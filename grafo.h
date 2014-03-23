@@ -10,23 +10,17 @@
 #ifndef GRAFO_H
 #define GRAFO_H
 
-#include <vector>
-#include <string>
+#include "gMatriz.h"
 
 namespace graf_bib {
 
-    typedef std::vector< std::vector<int> > Matriz;
-    typedef std::vector<int>                Linha;
-
-    class grafo {
+    class grafo : public gMatriz {
         private:
            unsigned int numVertices;
            unsigned int numArestas;
         
-           const Matriz matrizRep;
-
         public:
-            grafo (Matriz matrixGrafo);
+            grafo(std::string arquivo);
 
             unsigned int retNumVertices(void);
             unsigned int retNumArestas(void);
@@ -36,9 +30,6 @@ namespace graf_bib {
             bool completo(void);
             Matriz completarGrafo(void);
     };
-
-    std::string onError(std::string Falha);
-    std::string toString(Matriz mGrafo);
 }
 
 #endif // GRAFO_H 
