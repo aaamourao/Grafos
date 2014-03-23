@@ -17,7 +17,6 @@ using namespace std;
 graf_bib::arquivoParaGrafo::arquivoParaGrafo(string nome_arq) 
     : nomeArq(nome_arq) {
 
-
         ifstream arq(nome_arq.c_str());
 
         string linha;
