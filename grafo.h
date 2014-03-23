@@ -25,7 +25,6 @@ namespace graf_bib {
             unsigned int retNumVertices(void);
             unsigned int retNumArestas(void);
             Matriz retMatriz();
-            std::string toString(void);
 
             bool completo(void);
             Matriz completarGrafo(void);

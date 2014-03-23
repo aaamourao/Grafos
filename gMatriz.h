@@ -28,6 +28,9 @@ namespace graf_bib {
         public:
             gMatriz(std::string nome_arq);
             virtual Matriz retMatriz(void);
+
+            virtual bool operator==(const gMatriz &compMatr) const;
+            virtual bool operator!=(const gMatriz &compMatr) const;
     };
 
     std::string onError(std::string Falha);

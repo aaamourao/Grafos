@@ -38,6 +38,36 @@ graf_bib::Matriz graf_bib::gMatriz::retMatriz(void) {
     return matrizRep;
 }
 
+bool graf_bib::gMatriz::operator==(const gMatriz &compMatr) const {
+
+    bool ret = true;
+
+    if(this->matrizRep.size() != compMatr.matrizRep.size())
+        ret = false;
+
+    Matriz::const_iterator thisLinha = this->matrizRep.begin();
+    Matriz::const_iterator compLinha = compMatr.matrizRep.begin();
+
+    while(thisLinha != this->matrizRep.end() &&
+            compLinha != compMatr.matrizRep.end()) {
+
+        if(*thisLinha != *compLinha) {
+            ret = false;
+            break;
+        }
+
+        ++thisLinha;
+        ++compLinha;
+    }
+
+    return ret;
+}
+
+bool graf_bib::gMatriz::operator!=(const gMatriz &compMatr) const {
+    
+    return !(*this == compMatr);
+}
+
 string graf_bib::toString(Matriz mGrafo) {
 
     string ret = "";
@@ -64,3 +94,4 @@ string graf_bib::onError( string Falha ) {
     cout << "Erro: " + Falha + "\n";
     return "Erro: " + Falha + "\n";
 }
+
