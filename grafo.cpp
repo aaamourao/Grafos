@@ -30,9 +30,8 @@ graf_bib::grafo::grafo( Matriz matrixGrafo )
                 it != linha->end(); 
                 ++it) {
 
-            if(*it == 1 && 
-                    (linha - matrizRep.begin()) != (it - linha->begin()) ) 
-                ++numArestas;
+            if(*it >= 1)
+                numArestas += *it;
         }
     }
 
@@ -55,6 +54,34 @@ bool graf_bib::grafo::completo() {
 
     if(numArestas != (numVertices*(numVertices -1))/2 )
         ret = false;
+
+    else {
+        for(Matriz::const_iterator linha = matrizRep.begin(); 
+                linha != matrizRep.end(); 
+                ++linha) {
+        
+            if(linha->size()!= matrizRep.size())
+                throw onError("Matriz deve ser quadrada");
+
+
+            for(Linha::const_iterator it = linha->begin(); 
+                    it != linha->end(); 
+                    ++it) {
+
+                if(*it != 1 && 
+                    (linha - matrizRep.begin()) != (it - linha->begin()) ) {
+                    ret = false;
+                    break;
+                }
+                else if (*it != 0 && 
+                    (linha - matrizRep.begin()) == (it - linha->begin()) ) {
+                    ret = false;
+                    break;
+                }
+                        
+            }
+        }
+    }
 
     return ret;
 }
