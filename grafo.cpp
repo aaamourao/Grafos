@@ -87,7 +87,6 @@ bool graf_bib::grafo::completo(void) {
     return ret;
 }
 
-
 graf_bib::Matriz graf_bib::grafo::completarGrafo(void) {
 
     Matriz *ret = NULL;
