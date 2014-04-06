@@ -20,18 +20,18 @@ namespace graf_bib {
 
   class grafo : public gMatriz {
     private:
-     unsigned int numVertices;
-     unsigned int numArestas;
+      unsigned int numVertices;
+      unsigned int numArestas;
      
-     std::vector<std::string> corVertice;
-     std::map<unsigned int, unsigned int> peso;
+      std::vector<std::string> corVertice;
+      std::map<unsigned int, unsigned int> peso;
      
-     void bfs_visit(const unsigned int &indice, 
-         Caminho &vistados, Caminho &fifo);
-     void dfs_visit(const unsigned int &indice, 
-         Caminho &vistados);
+      void bfs_visit(const unsigned int &indice, 
+          Caminho &vistados, Caminho &fifo);
+      void dfs_visit(const unsigned int &indice, 
+          Caminho &vistados);
      
-     unsigned int extract_min(Caminho &queue);
+      unsigned int extract_min(Caminho &queue);
 
     public:
       grafo(std::string arquivo);
@@ -45,12 +45,13 @@ namespace graf_bib {
       
       Caminho bfs(unsigned int indiceInicial);
       Caminho dfs(unsigned int indiceInicial);
-      Caminho dijkstra(unsigned int verInicial, unsigned int verFinal); 
+      Caminho dijkstra(unsigned int verInicial, unsigned int verFinal);
       
       unsigned int num_componentes (void);
       
       bool hamiltoniano (void);
 
+      grafo kruskal(void);  
   };
 }
 

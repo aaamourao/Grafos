@@ -408,3 +408,11 @@ bool graf_bib::grafo::hamiltoniano (void) {
 
   return false;
 }*/
+
+graf_bib::grafo graf_bib::grafo::kruskal(void) {
+  graf_bib::grafo *arvore;
+
+  // TODO: Implementar kruskal
+
+  return *arvore;
+}  
