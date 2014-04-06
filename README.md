@@ -35,10 +35,18 @@ Questao 3
 Busca em Largura
 --
 
+.grafo 01 => 0 1 2 3 4
+
+.grafo 02 => 0 1 2 4 5 3 6 7
+
 Questao 4
 ==
 Busca em profundidade
 --
+
+.grafo 01 => 1 2 3 4
+
+.grafo 02 => 0 1 4 5 6 7 2 3 
 
 Questao 5
 ==
