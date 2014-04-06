@@ -53,6 +53,9 @@ Questao 5
 Retornar número de componentes do grafo 
 --
 
+.grafo 02 => componentes = 1
+.grafo_03 => componentes = 3
+
 Questao 6
 ==
 Algoritmo de Dijkstra
