@@ -149,10 +149,10 @@ void graf_bib::grafo::dfs_visit(const unsigned int &vertice) {
       if (corVertice[indiceAdj]=="branco") {
         dfs_visit(indiceAdj);
       }
-		}
-	}
-
-	corVertice[vertice] = "preto";
+    }
+  }
+  
+  corVertice[vertice] = "preto";
 }
 
 void graf_bib::grafo::num_componentes (void){
