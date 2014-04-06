@@ -12,12 +12,14 @@
 
 #include <fstream>
 #include <vector>
+#include <list>
 #include <string>
 
 namespace graf_bib {
 
   typedef std::vector< std::vector<int> > Matriz;
   typedef std::vector<int>                Linha;
+  typedef std::list<unsigned int>         Caminho;
   
   class gMatriz {
 
@@ -34,7 +36,9 @@ namespace graf_bib {
   };
 
   std::string onError(std::string Falha);
+
   std::string toString(Matriz mGrafo);
+  std::string toString(Caminho visitados);
 }
 
 #endif // ARQPARAMATR_H

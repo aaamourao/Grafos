@@ -89,6 +89,21 @@ string graf_bib::toString(Matriz mGrafo) {
   return ret;
 }
 
+string graf_bib::toString(Caminho visitados) {
+
+  string ret = "";
+
+  for(Caminho::const_iterator vertice = visitados.begin(); 
+      vertice != visitados.end(); 
+      ++vertice) {
+ 
+    ret += to_string(*vertice) + " ";
+
+  }
+
+  return ret;
+}
+
 string graf_bib::onError( string Falha ) {
  
   cout << "Erro: " + Falha + "\n";

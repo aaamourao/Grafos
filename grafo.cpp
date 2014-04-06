@@ -10,13 +10,19 @@
 #include "grafo.h"
 #include <algorithm>
 
+
+#include <iostream>
+
 using namespace std;
 
 graf_bib::grafo::grafo( string arquivo )
     : gMatriz(arquivo) {
 
   numVertices = matrizRep.size();
-  numArestas = 0;
+  numArestas  = 0;
+  simples     = true;
+  
+  corVertice.resize(numVertices, "branco"); 
 
   for(Matriz::const_iterator linha = matrizRep.begin();
       linha != matrizRep.end();
@@ -30,8 +36,13 @@ graf_bib::grafo::grafo( string arquivo )
         it != linha->end();
         ++it) {
 
-      if(*it >= 1)
+      if(*it >= 1) {
+        
         numArestas += *it;
+        
+        if(*it > 1 && !simples)
+          simples = false;
+      }
     }
   }
 
@@ -58,9 +69,10 @@ bool graf_bib::grafo::completo(void) {
 
   bool ret = true;
 
-  if(numArestas != (numVertices*(numVertices -1))/2 )
+  if(!simples)
     ret = false;
-
+  else if(numArestas != (numVertices*(numVertices -1))/2 )
+    ret = false;
   else {
     for(Matriz::const_iterator linha = matrizRep.begin();
         linha != matrizRep.end();
@@ -92,7 +104,7 @@ graf_bib::Matriz graf_bib::grafo::completarGrafo(void) {
 
   Matriz *ret = NULL;
 
-  if(!completo()) {
+  if(!completo() && simples) {
 
     ret = new Matriz(matrizRep);
 
@@ -104,8 +116,7 @@ graf_bib::Matriz graf_bib::grafo::completarGrafo(void) {
           it != linha->end();
           ++it) {
 
-        if(*it == 0 &&
-          (linha - ret->begin()) != (it - linha->begin()) )
+        if(linha - ret->begin() != it - linha->begin())
           *it = 1;
 
         else
@@ -117,38 +128,44 @@ graf_bib::Matriz graf_bib::grafo::completarGrafo(void) {
   return *ret;
 }
 
-//TODO: retornar lista
-list<int> graf_bib::grafo::dfs (unsigned int verticeInicial) {
+list<unsigned int> graf_bib::grafo::dfs (unsigned int verticeInicial) {
 
-	unsigned int vertice;
-	//Inicializa todos vertices com branco
-	for (vertice = 0; vertice < numVertices; vertice++) {
-		corVertice[vertice] = "branco";
-	}
-	// Percorre cada vertice
-	for (vertice = 0; vertice < numVertices; vertice++) {
-		if (corVertice[vertice] == "branco") {
-			//Itera nos vertices ate encontrar o vertice mais profundo
-			dfs_visit(vertice);
-		}
-	}
+  Caminho *visitados = NULL;
+
+  if(simples) {  
+    
+    for (unsigned int vertice = 0;
+        vertice < numVertices; 
+        vertice++) {
+
+      corVertice[vertice] = "branco";
+    }
+    
+    visitados = new Caminho();
+    dfs_visit(verticeInicial, *visitados);
+  }
+
+  return *visitados;
 }
 
-void graf_bib::grafo::dfs_visit(const unsigned int &vertice) {
-	corVertice[vertice] = "cinza";
+void graf_bib::grafo::dfs_visit(const unsigned int &vertice,
+                      Caminho &visitados) {
+
+  corVertice[vertice] = "cinza";
 	
-  //Matriz de adjacencias do grafo
   Matriz *ret = new Matriz(matrizRep);
   Matriz::iterator linha = ret->begin() + vertice;
-	
-  // Trbalha com vertices adjacentes ao vertice atual
+
+  visitados.push_back(vertice);
+
   for(Linha::iterator it = linha->begin(); it != linha->end(); ++it) {
 		
-    if (*it == 1) {
-      int indiceAdj = it -(linha->begin());//indice do vertice adjacente
-      if (corVertice[indiceAdj]=="branco") {
-        dfs_visit(indiceAdj);
-      }
+    if (*it >= 1) {
+
+      int indiceAdj = it -(linha->begin());
+
+      if (corVertice[indiceAdj] == "branco")
+        dfs_visit(indiceAdj, visitados);
     }
   }
   
@@ -180,7 +197,8 @@ int componentes=0;
     verticesNaoVerificados.remove(linha-(ret->begin()));
     if (!verticesDoComponente.empty()) {
         linha = ret->begin() + *(++verticesDoComponente.begin());
-    } else {
+    } 
+    else {
         componentes++;
     }
   }
