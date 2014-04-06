@@ -223,44 +223,7 @@ void graf_bib::grafo::dfs_visit(const unsigned int &vertice,
   
   corVertice[vertice] = "preto";
 }
-/*
-void graf_bib::grafo::num_componentes (void){
-  
-  int componentes = 0;
-  int vertice     = 0;
-  
-  set<int> verticesDoComponente;//TODO: inicializar
-  
-  list<int> verticesNaoVerificados;//TODO: inicializar
-  
-  for (vertice=0; vertice < numVertices; vertice++)
-      verticesNaoVerificados.push_back(vertice);
-  
-  Matriz *ret = new Matriz(matrizRep);
-  Matriz::iterator linha = ++(ret->begin());
 
-  while(!verticesNaoVerificados.empty()) {
-    
-    for(Linha::iterator it = linha->begin(); 
-      it != linha->end(); 
-        ++it) {//itera nos vertices adjacentes
-        
-      if (*it ==1) {
-            verticesDoComponente.insert(it - (linha->begin()));
-        }
-    }
-    
-    verticesNaoVerificados.remove(linha-(ret->begin()));
-    
-    if (!verticesDoComponente.empty()) {
-        linha = ret->begin() + *(++verticesDoComponente.begin());
-    } 
-    else {
-        componentes++;
-    }
-  }
-}
-*/
 unsigned int graf_bib::grafo::num_componentes (void){
   
   unsigned int componentes = 0;
