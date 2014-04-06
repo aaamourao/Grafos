@@ -23,6 +23,8 @@ namespace graf_bib {
      unsigned int numArestas;
      unsigned int simples;
      std::vector<std::string> corVertice;
+     void bfs_visit(const unsigned int &indice, 
+         Caminho &vistados, Caminho &fifo);
      void dfs_visit(const unsigned int &indice, 
          Caminho &vistados);
 
@@ -35,6 +37,7 @@ namespace graf_bib {
 
       bool completo(void);
       Matriz completarGrafo(void);
+      std::list<unsigned int> bfs (unsigned int indiceInicial);
       std::list<unsigned int> dfs (unsigned int indiceInicial);
       void num_componentes (void);
       bool hamiltoniano (void);

@@ -27,10 +27,13 @@ int main () {
     cout << graf_bib::toString(grafo01.completarGrafo()) << endl << endl;
   }
 
+  cout << "Busca em largura" << endl; 
+  cout << graf_bib::toString(grafo01.bfs(0)) << endl; 
+  
   cout << "Busca em profundidade" << endl; 
   cout << graf_bib::toString(grafo01.dfs(0)) << endl; 
-
-  cout << "======================" << endl << endl;
+  
+  cout << endl << "======================" << endl << endl;
 
   graf_bib::grafo grafo02("grafo02.txt");
 
@@ -43,10 +46,13 @@ int main () {
       cout << graf_bib::toString(grafo02.completarGrafo()) << endl;
   }
 
+  cout << "Busca em largura" << endl; 
+  cout << graf_bib::toString(grafo02.bfs(0)) << endl; 
+  
   cout << "Busca em profundidade" << endl; 
   cout << graf_bib::toString(grafo02.dfs(0)) << endl; 
   
-  cout << "======================" << endl << endl;
+  cout << endl << "======================" << endl << endl;
   
   return 0;
 }

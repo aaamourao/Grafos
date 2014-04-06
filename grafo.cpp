@@ -128,6 +128,58 @@ graf_bib::Matriz graf_bib::grafo::completarGrafo(void) {
   return *ret;
 }
 
+list<unsigned int> graf_bib::grafo::bfs (unsigned int verticeInicial) {
+
+  Caminho fifo;
+  Caminho *visitados = NULL;
+
+  if(simples) {  
+    
+    for (unsigned int vertice = 0;
+        vertice < numVertices; 
+        vertice++) {
+
+      corVertice[vertice] = "branco";
+    }
+    
+    visitados = new Caminho();
+    bfs_visit(verticeInicial, *visitados, fifo);
+  }
+
+  return *visitados;
+}
+
+void graf_bib::grafo::bfs_visit(const unsigned int &vertice,
+                      Caminho &visitados, Caminho &fifo) {
+
+  corVertice[vertice] = "cinza";
+	
+  Matriz *ret = new Matriz(matrizRep);
+  Matriz::iterator linha = ret->begin() + vertice;
+
+  for(Linha::iterator it = linha->begin(); it != linha->end(); ++it) {
+		
+    if (*it >= 1) {
+
+      int indiceAdj = it -(linha->begin());
+
+      if (corVertice[indiceAdj] == "branco") {
+        fifo.push_back(indiceAdj);
+        corVertice[indiceAdj] = "cinza";
+      }
+    }
+  }
+  corVertice[vertice] = "preto";
+  visitados.push_back(vertice);
+
+  if(!fifo.empty()) {
+    unsigned int proxVertice = fifo.front();
+    fifo.pop_front();
+
+    bfs_visit(proxVertice, visitados, fifo);
+  }
+}
+
 list<unsigned int> graf_bib::grafo::dfs (unsigned int verticeInicial) {
 
   Caminho *visitados = NULL;
