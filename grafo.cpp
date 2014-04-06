@@ -138,11 +138,11 @@ void graf_bib::grafo::dfs_visit(const unsigned int &vertice) {
 	corVertice[vertice] = "cinza";
 	
   //Matriz de adjacencias do grafo
-	Matriz *ret = new Matriz(matrizRep);
+  Matriz *ret = new Matriz(matrizRep);
   Matriz::iterator linha = ret->begin() + vertice;
 	
   // Trbalha com vertices adjacentes ao vertice atual
-	for(Linha::iterator it = linha->begin(); it != linha->end(); ++it) {
+  for(Linha::iterator it = linha->begin(); it != linha->end(); ++it) {
 		
     if (*it == 1) {
       int indiceAdj = it -(linha->begin());//indice do vertice adjacente
