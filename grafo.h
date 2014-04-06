@@ -37,10 +37,12 @@ namespace graf_bib {
 
       bool completo(void);
       Matriz completarGrafo(void);
-      std::list<unsigned int> bfs (unsigned int indiceInicial);
-      std::list<unsigned int> dfs (unsigned int indiceInicial);
+      Caminho bfs(unsigned int indiceInicial);
+      Caminho dfs(unsigned int indiceInicial);
       unsigned int num_componentes (void);
+      Caminho dijkstra(unsigned int verInicial, unsigned int verFinal); 
       bool hamiltoniano (void);
+
   };
 }
 

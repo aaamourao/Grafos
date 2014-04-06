@@ -20,7 +20,6 @@ graf_bib::grafo::grafo( string arquivo )
 
   numVertices = matrizRep.size();
   numArestas  = 0;
-  simples     = true;
   
   corVertice.resize(numVertices, "branco"); 
 
@@ -36,13 +35,9 @@ graf_bib::grafo::grafo( string arquivo )
         it != linha->end();
         ++it) {
 
-      if(*it >= 1) {
-        
+      if(*it >= 1)
         numArestas += *it;
         
-        if(*it > 1 && !simples)
-          simples = false;
-      }
     }
   }
 
@@ -69,9 +64,7 @@ bool graf_bib::grafo::completo(void) {
 
   bool ret = true;
 
-  if(!simples)
-    ret = false;
-  else if(numArestas != (numVertices*(numVertices -1))/2 )
+  if(numArestas != (numVertices*(numVertices -1))/2 )
     ret = false;
   else {
     for(Matriz::const_iterator linha = matrizRep.begin();
@@ -104,7 +97,7 @@ graf_bib::Matriz graf_bib::grafo::completarGrafo(void) {
 
   Matriz *ret = NULL;
 
-  if(!completo() && simples) {
+  if(!completo()) {
 
     ret = new Matriz(matrizRep);
 
@@ -132,19 +125,16 @@ list<unsigned int> graf_bib::grafo::bfs (unsigned int verticeInicial) {
 
   Caminho fifo;
   Caminho *visitados = NULL;
+  
+  for (unsigned int vertice = 0;
+      vertice < numVertices; 
+      vertice++) {
 
-  if(simples) {  
-    
-    for (unsigned int vertice = 0;
-        vertice < numVertices; 
-        vertice++) {
-
-      corVertice[vertice] = "branco";
-    }
-    
-    visitados = new Caminho();
-    bfs_visit(verticeInicial, *visitados, fifo);
+    corVertice[vertice] = "branco";
   }
+  
+  visitados = new Caminho();
+  bfs_visit(verticeInicial, *visitados, fifo);
 
   return *visitados;
 }
@@ -184,18 +174,15 @@ list<unsigned int> graf_bib::grafo::dfs (unsigned int verticeInicial) {
 
   Caminho *visitados = NULL;
 
-  if(simples) {  
-    
-    for (unsigned int vertice = 0;
-        vertice < numVertices; 
-        vertice++) {
+  for (unsigned int vertice = 0;
+      vertice < numVertices; 
+      vertice++) {
 
-      corVertice[vertice] = "branco";
-    }
-    
-    visitados = new Caminho();
-    dfs_visit(verticeInicial, *visitados);
+    corVertice[vertice] = "branco";
   }
+  
+  visitados = new Caminho();
+  dfs_visit(verticeInicial, *visitados);
 
   return *visitados;
 }
@@ -253,11 +240,16 @@ unsigned int graf_bib::grafo::num_componentes (void){
   return componentes;  
 }
 
+graf_bib::Caminho dijkstra(unsigned int verInicial, unsigned int verFinal) {
+  
+  graf_bib::Caminho *visitados = NULL;
+
+  return *visitados;
+} 
+/*
 bool graf_bib::grafo::hamiltoniano (void) {
 //TODO: checar se tem apenas 1 componente antes
 
-  Matriz *ret = new Matriz(matrizRep);
-  list < int > verticesChecados;//TODO: inicializar
   vector< list < int > > fila;//TODO: inicializar
   Matriz::iterator linha = ++(ret->begin());
   int indiceVertice = 0;
@@ -329,4 +321,4 @@ bool graf_bib::grafo::hamiltoniano (void) {
   }
 
   return false;
-}
+}*/
