@@ -51,16 +51,27 @@ int main () {
   
   cout << "Busca em profundidade" << endl; 
   cout << graf_bib::toString(grafo02.dfs(0)) << endl; 
-  cout << "Numero de componentes: "<< grafo02.num_componentes() << endl;
-
+  cout << "Numero de componentes: " << grafo02.num_componentes() << endl;
+  cout << "Dijkstra 0-7 : " << graf_bib::toString(grafo02.dijkstra(0, 7)) << endl;
+  
   cout << endl << "======================" << endl << endl;
  
   graf_bib::grafo grafo03("grafo03.txt");
   
   cout << "grafo 03:" << endl << endl;
   cout << graf_bib::toString(grafo03.retMatriz()) << endl;
-  cout << "Numero de componentes: "<< grafo03.num_componentes() << endl;
+  cout << "Numero de componentes: " << grafo03.num_componentes() << endl;
 
   cout << endl << "======================" << endl << endl;
+  
+  graf_bib::grafo grafo04("grafo04.txt");
+  
+  cout << "grafo 04:" << endl << endl;
+  cout << graf_bib::toString(grafo04.retMatriz()) << endl;
+  cout << "Dijkstra 0-4 : " << graf_bib::toString(grafo04.dijkstra(0, 4)) << endl;
+  cout << "Dijkstra 0-2 : " << graf_bib::toString(grafo04.dijkstra(0, 2)) << endl;
+
+  cout << endl << "======================" << endl << endl;
+  
   return 0;
 }

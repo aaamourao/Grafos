@@ -55,12 +55,17 @@ Retornar número de componentes do grafo
 
 .grafo 02 => componentes = 1
 
-.grafo_03 => componentes = 3
+.grafo 03 => componentes = 3
 
 Questao 6
 ==
 Algoritmo de Dijkstra
 --
+
+.grafo 02 =>  Dijkstra 0-7: 0 1 5 7 
+
+.grafo 04 =>  Dijkstra 0-4: 0 3 4
+              Dijkstra 0-2: 0 3 1 2
 
 Questao 7
 ==

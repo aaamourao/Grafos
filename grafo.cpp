@@ -9,7 +9,7 @@
 
 #include "grafo.h"
 #include <algorithm>
-
+#include <limits>
 
 #include <iostream>
 
@@ -121,7 +121,7 @@ graf_bib::Matriz graf_bib::grafo::completarGrafo(void) {
   return *ret;
 }
 
-list<unsigned int> graf_bib::grafo::bfs (unsigned int verticeInicial) {
+graf_bib::Caminho graf_bib::grafo::bfs (unsigned int verticeInicial) {
 
   Caminho fifo;
   Caminho *visitados = NULL;
@@ -170,7 +170,7 @@ void graf_bib::grafo::bfs_visit(const unsigned int &vertice,
   }
 }
 
-list<unsigned int> graf_bib::grafo::dfs (unsigned int verticeInicial) {
+graf_bib::Caminho graf_bib::grafo::dfs (unsigned int verticeInicial) {
 
   Caminho *visitados = NULL;
 
@@ -240,12 +240,98 @@ unsigned int graf_bib::grafo::num_componentes (void){
   return componentes;  
 }
 
-graf_bib::Caminho dijkstra(unsigned int verInicial, unsigned int verFinal) {
+graf_bib::Caminho graf_bib::grafo::dijkstra(unsigned int verInicial, 
+    unsigned int verFinal) {
   
-  graf_bib::Caminho *visitados = NULL;
+  Caminho queue;
 
-  return *visitados;
-} 
+  set<unsigned int> verificados;
+  map<unsigned int, unsigned int > pai;
+  
+  for (unsigned int vertice = 0;
+      vertice < numVertices; 
+      vertice++) {
+
+    queue.push_back(vertice);
+    peso[vertice] = numeric_limits<unsigned int>::max(); 
+  }
+
+  peso[verInicial] = 0;
+
+  
+  while(!queue.empty()) {
+    
+    unsigned int verticeAtual = extract_min(queue);
+
+    if(verticeAtual == verFinal)
+      break;
+
+    verificados.insert(verticeAtual);
+    
+    Matriz *gph = new Matriz(matrizRep);
+    Matriz::iterator linha = gph->begin() + verticeAtual;
+
+    for(Linha::iterator it = linha->begin(); it != linha->end(); ++it) {
+		
+      if (*it >= 1) {
+        
+        int indiceAdj = it -(linha->begin());
+        
+        map<unsigned int, unsigned int>::iterator alreadyRead 
+          = peso.find(indiceAdj);
+
+        if(alreadyRead != peso.end()) {
+
+          if(peso[indiceAdj] > *it) {
+            peso[indiceAdj] = *it;
+            pai[indiceAdj] = verticeAtual;
+          }
+        }
+      }
+    }
+  } 
+
+  Caminho melhorcaminho;
+  
+  unsigned int verAtual = verFinal;
+  melhorcaminho.push_back(verAtual);
+
+  while(1) {
+    
+    verAtual = pai[verAtual];
+    melhorcaminho.push_back(verAtual);
+    
+    if(verAtual == verInicial)
+      break;
+  }
+  
+  melhorcaminho.reverse();
+
+  return melhorcaminho;
+}
+
+unsigned int graf_bib::grafo::extract_min(Caminho &queue) {
+ 
+  unsigned int verticeMin;
+  unsigned int min = numeric_limits<unsigned int>::max();
+
+  for(map<unsigned int, unsigned int>::iterator it = peso.begin(); 
+      it != peso.end(); 
+      ++it) {
+		
+    if (it->second < min) {
+      
+      min         = it->second;
+      verticeMin  = it->first;
+    }
+  }
+
+  peso.erase(verticeMin);
+  queue.remove(verticeMin);
+  
+  return verticeMin;
+}
+
 /*
 bool graf_bib::grafo::hamiltoniano (void) {
 //TODO: checar se tem apenas 1 componente antes

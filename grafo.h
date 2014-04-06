@@ -14,6 +14,7 @@
 #include <vector>
 #include <list>
 #include <set>
+#include <map>
 
 namespace graf_bib {
 
@@ -21,12 +22,16 @@ namespace graf_bib {
     private:
      unsigned int numVertices;
      unsigned int numArestas;
-     unsigned int simples;
+     
      std::vector<std::string> corVertice;
+     std::map<unsigned int, unsigned int> peso;
+     
      void bfs_visit(const unsigned int &indice, 
          Caminho &vistados, Caminho &fifo);
      void dfs_visit(const unsigned int &indice, 
          Caminho &vistados);
+     
+     unsigned int extract_min(Caminho &queue);
 
     public:
       grafo(std::string arquivo);
@@ -37,10 +42,13 @@ namespace graf_bib {
 
       bool completo(void);
       Matriz completarGrafo(void);
+      
       Caminho bfs(unsigned int indiceInicial);
       Caminho dfs(unsigned int indiceInicial);
-      unsigned int num_componentes (void);
       Caminho dijkstra(unsigned int verInicial, unsigned int verFinal); 
+      
+      unsigned int num_componentes (void);
+      
       bool hamiltoniano (void);
 
   };
