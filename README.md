@@ -29,3 +29,35 @@ Completar Grafo
 .grafo 01 => Já é completo
 
 .grafo 02 => Mostra complemento
+
+Questao 3
+==
+Busca em Largura
+--
+
+Questao 4
+==
+Busca em profundidade
+--
+
+Questao 5
+==
+Retornar número de componentes do grafo 
+--
+
+Questao 6
+==
+Algoritmo de Dijkstra
+--
+
+Questao 7
+==
+Grafo Hamiltoniano
+--
+
+Questao 8
+==
+Arvore geradora minima
+--
+
+ 
