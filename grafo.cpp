@@ -223,21 +223,24 @@ void graf_bib::grafo::dfs_visit(const unsigned int &vertice,
   
   corVertice[vertice] = "preto";
 }
-
+/*
 void graf_bib::grafo::num_componentes (void){
-int componentes=0;
-  int vertice=0;
+  
+  int componentes = 0;
+  int vertice     = 0;
+  
   set<int> verticesDoComponente;//TODO: inicializar
-  // Lista para vertices que nao verificou vertices adjacentes
+  
   list<int> verticesNaoVerificados;//TODO: inicializar
-  for (vertice=0; vertice < numVertices; vertice++) {
+  
+  for (vertice=0; vertice < numVertices; vertice++)
       verticesNaoVerificados.push_back(vertice);
-  }
-  //Matriz de adjacencias
+  
   Matriz *ret = new Matriz(matrizRep);
   Matriz::iterator linha = ++(ret->begin());
 
   while(!verticesNaoVerificados.empty()) {
+    
     for(Linha::iterator it = linha->begin(); 
       it != linha->end(); 
         ++it) {//itera nos vertices adjacentes
@@ -246,7 +249,9 @@ int componentes=0;
             verticesDoComponente.insert(it - (linha->begin()));
         }
     }
+    
     verticesNaoVerificados.remove(linha-(ret->begin()));
+    
     if (!verticesDoComponente.empty()) {
         linha = ret->begin() + *(++verticesDoComponente.begin());
     } 
@@ -254,6 +259,35 @@ int componentes=0;
         componentes++;
     }
   }
+}
+*/
+unsigned int graf_bib::grafo::num_componentes (void){
+  
+  unsigned int componentes = 0;
+  Caminho fifo_naoVisitados; 
+  
+  for (unsigned int vertice = 0;
+        vertice < numVertices; 
+        vertice++) {
+
+      fifo_naoVisitados.push_back(vertice);
+      corVertice[vertice] = "branco";
+  }
+
+  while(!fifo_naoVisitados.empty()) {
+    
+    int verticeAtual = fifo_naoVisitados.front();
+    fifo_naoVisitados.pop_front();
+    
+    if(corVertice[verticeAtual] == "branco") {
+
+      ++componentes;
+
+      this->dfs(verticeAtual);
+    }
+  }
+
+  return componentes;  
 }
 
 bool graf_bib::grafo::hamiltoniano (void) {

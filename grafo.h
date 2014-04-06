@@ -39,7 +39,7 @@ namespace graf_bib {
       Matriz completarGrafo(void);
       std::list<unsigned int> bfs (unsigned int indiceInicial);
       std::list<unsigned int> dfs (unsigned int indiceInicial);
-      void num_componentes (void);
+      unsigned int num_componentes (void);
       bool hamiltoniano (void);
   };
 }

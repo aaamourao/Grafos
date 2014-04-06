@@ -51,8 +51,16 @@ int main () {
   
   cout << "Busca em profundidade" << endl; 
   cout << graf_bib::toString(grafo02.dfs(0)) << endl; 
-  
+  cout << "Numero de componentes: "<< grafo02.num_componentes() << endl;
+
   cout << endl << "======================" << endl << endl;
+ 
+  graf_bib::grafo grafo03("grafo03.txt");
   
+  cout << "grafo 03:" << endl << endl;
+  cout << graf_bib::toString(grafo03.retMatriz()) << endl;
+  cout << "Numero de componentes: "<< grafo03.num_componentes() << endl;
+
+  cout << endl << "======================" << endl << endl;
   return 0;
 }
