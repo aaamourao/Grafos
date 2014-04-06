@@ -16,82 +16,82 @@
 using namespace std;
 
 graf_bib::gMatriz::gMatriz(string nome_arq) 
-    : nomeArq(nome_arq) {
+  : nomeArq(nome_arq) {
 
-        ifstream arq(nome_arq.c_str());
+    ifstream arq(nome_arq.c_str());
 
-        string linha;
-        while(getline(arq, linha)) {
-            
-            istringstream stream(linha);
-            
-            matrizRep.push_back(
-                    Linha( istream_iterator<int>(stream),
-                    istream_iterator<int>() ));
-        }
+    string linha;
+    while(getline(arq, linha)) {
+        
+        istringstream stream(linha);
+        
+        matrizRep.push_back(
+                Linha( istream_iterator<int>(stream),
+                istream_iterator<int>() ));
+    }
 
-        arq.close();
+    arq.close();
 }
 
 graf_bib::Matriz graf_bib::gMatriz::retMatriz(void) {
     
-    return matrizRep;
+  return matrizRep;
 }
 
 bool graf_bib::gMatriz::operator==(const gMatriz &compMatr) const {
 
-    bool ret = true;
+  bool ret = true;
 
-    if(this->matrizRep.size() != compMatr.matrizRep.size())
-        ret = false;
+  if(this->matrizRep.size() != compMatr.matrizRep.size())
+    ret = false;
 
-    Matriz::const_iterator thisLinha = this->matrizRep.begin();
-    Matriz::const_iterator compLinha = compMatr.matrizRep.begin();
+  Matriz::const_iterator thisLinha = this->matrizRep.begin();
+  Matriz::const_iterator compLinha = compMatr.matrizRep.begin();
 
-    while(thisLinha != this->matrizRep.end() &&
-            compLinha != compMatr.matrizRep.end()) {
+  while(thisLinha != this->matrizRep.end() &&
+        compLinha != compMatr.matrizRep.end()) {
 
-        if(*thisLinha != *compLinha) {
-            ret = false;
-            break;
-        }
-
-        ++thisLinha;
-        ++compLinha;
+    if(*thisLinha != *compLinha) {
+      ret = false;
+      break;
     }
 
-    return ret;
+    ++thisLinha;
+    ++compLinha;
+  }
+
+  return ret;
 }
 
 bool graf_bib::gMatriz::operator!=(const gMatriz &compMatr) const {
     
-    return !(*this == compMatr);
+  return !(*this == compMatr);
 }
 
 string graf_bib::toString(Matriz mGrafo) {
 
-    string ret = "";
+  string ret = "";
 
-    for(Matriz::const_iterator linha = mGrafo.begin(); 
-            linha != mGrafo.end(); 
-            ++linha) {
-     
-        for(Linha::const_iterator it = linha->begin(); 
-                it != linha->end(); 
-                ++it) {
+  for(Matriz::const_iterator linha = mGrafo.begin(); 
+      linha != mGrafo.end(); 
+      ++linha) {
+ 
+    for(Linha::const_iterator it = linha->begin(); 
+        it != linha->end(); 
+        ++it) {
 
-            ret += to_string(*it) + " ";
-        }
-
-        ret += "\n";
+      ret += to_string(*it) + " ";
     }
 
-    return ret;
+    ret += "\n";
+  }
+
+  return ret;
 }
 
 string graf_bib::onError( string Falha ) {
  
-    cout << "Erro: " + Falha + "\n";
-    return "Erro: " + Falha + "\n";
+  cout << "Erro: " + Falha + "\n";
+  return "Erro: " + Falha + "\n";
 }
 

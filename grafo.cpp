@@ -15,106 +15,106 @@ using namespace std;
 graf_bib::grafo::grafo( string arquivo )
     : gMatriz(arquivo) {
 
-    numVertices = matrizRep.size();
-    numArestas = 0;
+  numVertices = matrizRep.size();
+  numArestas = 0;
 
-    for(Matriz::const_iterator linha = matrizRep.begin();
-            linha != matrizRep.end();
-            ++linha) {
+  for(Matriz::const_iterator linha = matrizRep.begin();
+      linha != matrizRep.end();
+      ++linha) {
 
-        if(linha->size()!= matrizRep.size())
-            throw onError("Matriz deve ser quadrada");
+    if(linha->size()!= matrizRep.size())
+      throw onError("Matriz deve ser quadrada");
 
 
-        for(Linha::const_iterator it = linha->begin();
-                it != linha->end();
-                ++it) {
+    for(Linha::const_iterator it = linha->begin();
+        it != linha->end();
+        ++it) {
 
-            if(*it >= 1)
-                numArestas += *it;
-        }
+      if(*it >= 1)
+        numArestas += *it;
     }
+  }
 
-    numArestas = numArestas/2;
+  numArestas = numArestas/2;
 }
 
 unsigned int graf_bib::grafo::retNumVertices(void) {
 
-    return numVertices;
+  return numVertices;
 }
 
 unsigned int graf_bib::grafo::retNumArestas(void) {
 
-    return numArestas;
+  return numArestas;
 }
 
 
 graf_bib::Matriz graf_bib::grafo::retMatriz() {
 
-    return matrizRep;
+  return matrizRep;
 }
 
 bool graf_bib::grafo::completo(void) {
 
-    bool ret = true;
+  bool ret = true;
 
-    if(numArestas != (numVertices*(numVertices -1))/2 )
-        ret = false;
+  if(numArestas != (numVertices*(numVertices -1))/2 )
+    ret = false;
 
-    else {
-        for(Matriz::const_iterator linha = matrizRep.begin();
-                linha != matrizRep.end();
-                ++linha) {
+  else {
+    for(Matriz::const_iterator linha = matrizRep.begin();
+        linha != matrizRep.end();
+        ++linha) {
 
-            for(Linha::const_iterator it = linha->begin();
-                    it != linha->end();
-                    ++it) {
+      for(Linha::const_iterator it = linha->begin();
+          it != linha->end();
+          ++it) {
 
-                if(*it != 1 &&
-                    (linha - matrizRep.begin()) != (it - linha->begin()) ) {
-                    ret = false;
-                    break;
-                }
-                else if (*it != 0 &&
-                    (linha - matrizRep.begin()) == (it - linha->begin()) ) {
-                    ret = false;
-                    break;
-                }
-
-            }
+        if(*it != 1 &&
+          (linha - matrizRep.begin()) != (it - linha->begin()) ) {
+          
+          ret = false;
+          break;
         }
+        else if (*it != 0 &&
+              (linha - matrizRep.begin()) == (it - linha->begin()) ) {
+          ret = false;
+          break;
+        }
+      }
     }
+  }
 
-    return ret;
+  return ret;
 }
 
 graf_bib::Matriz graf_bib::grafo::completarGrafo(void) {
 
-    Matriz *ret = NULL;
+  Matriz *ret = NULL;
 
-    if(!completo()) {
+  if(!completo()) {
 
-        ret = new Matriz(matrizRep);
+    ret = new Matriz(matrizRep);
 
-        for(Matriz::iterator linha = ret->begin();
-                linha != ret->end();
-                ++linha) {
+    for(Matriz::iterator linha = ret->begin();
+        linha != ret->end();
+        ++linha) {
 
-            for(Linha::iterator it = linha->begin();
-                    it != linha->end();
-                    ++it) {
+      for(Linha::iterator it = linha->begin();
+          it != linha->end();
+          ++it) {
 
-                if(*it == 0 &&
-                    (linha - ret->begin()) != (it - linha->begin()) )
-                    *it = 1;
+        if(*it == 0 &&
+          (linha - ret->begin()) != (it - linha->begin()) )
+          *it = 1;
 
-                else
-                    *it = 0;
-            }
-        }
+        else
+          *it = 0;
+      }
     }
+  }
 
-    return *ret;
+  return *ret;
 }
 
 //TODO: retornar lista
@@ -136,91 +136,130 @@ list<int> graf_bib::grafo::dfs (unsigned int verticeInicial) {
 
 void graf_bib::grafo::dfs_visit(const unsigned int &vertice) {
 	corVertice[vertice] = "cinza";
-	//Matriz de adjacencias do grafo
+	
+  //Matriz de adjacencias do grafo
 	Matriz *ret = new Matriz(matrizRep);
-    Matriz::iterator linha = ret->begin() + vertice;
-	// Trbalha com vertices adjacentes ao vertice atual
+  Matriz::iterator linha = ret->begin() + vertice;
+	
+  // Trbalha com vertices adjacentes ao vertice atual
 	for(Linha::iterator it = linha->begin(); it != linha->end(); ++it) {
-		if (*it == 1) {
-            int indiceAdj = it -(linha->begin());//indice do vertice adjacente
-            if (corVertice[indiceAdj]=="branco") {
-                dfs_visit(indiceAdj);
-            }
+		
+    if (*it == 1) {
+      int indiceAdj = it -(linha->begin());//indice do vertice adjacente
+      if (corVertice[indiceAdj]=="branco") {
+        dfs_visit(indiceAdj);
+      }
 		}
 	}
+
 	corVertice[vertice] = "preto";
 }
 
 void graf_bib::grafo::num_componentes (void){
-    int componentes=0;
-    int vertice=0;
-    set<int> verticesDoComponente;//TODO: inicializar
-    // Lista para vertices que nao verificou vertices adjacentes
-    list<int> verticesNaoVerificados;//TODO: inicializar
-    for (vertice=0; vertice < numVertices; vertice++) {
-        verticesNaoVerificados.push_back(vertice);
-    }
-    //Matriz de adjacencias
-    Matriz *ret = new Matriz(matrizRep);
-    Matriz::iterator linha = ++(ret->begin());
+int componentes=0;
+  int vertice=0;
+  set<int> verticesDoComponente;//TODO: inicializar
+  // Lista para vertices que nao verificou vertices adjacentes
+  list<int> verticesNaoVerificados;//TODO: inicializar
+  for (vertice=0; vertice < numVertices; vertice++) {
+      verticesNaoVerificados.push_back(vertice);
+  }
+  //Matriz de adjacencias
+  Matriz *ret = new Matriz(matrizRep);
+  Matriz::iterator linha = ++(ret->begin());
 
-    while(!verticesNaoVerificados.empty()) {
-        for(Linha::iterator it = linha->begin(); it != linha->end(); ++it) {//itera nos vertices adjacentes
-            if (*it ==1) {
-                verticesDoComponente.insert(it - (linha->begin()));
-            }
-        }
-        verticesNaoVerificados.remove(linha-(ret->begin()));
-        if (!verticesDoComponente.empty()) {
-            linha = ret->begin() + *(++verticesDoComponente.begin());
-        } else {
-            componentes++;
+  while(!verticesNaoVerificados.empty()) {
+    for(Linha::iterator it = linha->begin(); 
+      it != linha->end(); 
+        ++it) {//itera nos vertices adjacentes
+        
+      if (*it ==1) {
+            verticesDoComponente.insert(it - (linha->begin()));
         }
     }
+    verticesNaoVerificados.remove(linha-(ret->begin()));
+    if (!verticesDoComponente.empty()) {
+        linha = ret->begin() + *(++verticesDoComponente.begin());
+    } else {
+        componentes++;
+    }
+  }
 }
 
 bool graf_bib::grafo::hamiltoniano (void) {
-    //TODO checar se tem apenas 1 componente antes
+//TODO: checar se tem apenas 1 componente antes
 
-    Matriz *ret = new Matriz(matrizRep);
-    list < int > verticesChecados;//TODO: inicializar
-    vector< list < int > > fila;//TODO: inicializar
-    Matriz::iterator linha = ++(ret->begin());
-    int indiceVertice = 0;
+  Matriz *ret = new Matriz(matrizRep);
+  list < int > verticesChecados;//TODO: inicializar
+  vector< list < int > > fila;//TODO: inicializar
+  Matriz::iterator linha = ++(ret->begin());
+  int indiceVertice = 0;
 
-    while(!fila[0].empty()) {
-        for(Linha::iterator it = linha->begin(); it != linha->end(); ++it) {//itera nos vertices adjacentes
-            if (*it ==1) {//Adiciona os vertices adjacentes a uma fila de prioridades
-                fila[indiceVertice].push_front(it - (linha->begin()));
-            }
-        }
-        if (!(fila[indiceVertice].empty()) && find(verticesChecados.begin(),verticesChecados.end(),fila[indiceVertice].front())==verticesChecados.end()) {//vertice ainda nao esta no ciclo
-            //Adiciona um vertice ao ciclo de hamilton
-            verticesChecados.push_back(fila[indiceVertice].front());
+  while(!fila[0].empty()) {
+      
+    for(Linha::iterator it = linha->begin();
+      it != linha->end(); 
+      ++it) {//itera nos vertices adjacentes
+        
+      if (*it ==1) {
+        //Adiciona os vertices adjacentes a uma fila de prioridades
+            
+        fila[indiceVertice].push_front(it - (linha->begin()));
+      }
+    }
+
+    if (!(fila[indiceVertice].empty()) && 
+        find(verticesChecados.begin(),
+          verticesChecados.end(),
+          fila[indiceVertice].front())==verticesChecados.end()) {
+      
+      //vertice ainda nao esta no ciclo
+      //Adiciona um vertice ao ciclo de hamilton
+      verticesChecados.push_back(fila[indiceVertice].front());
+      
+      //Proximo vertice a verificar seus vertices adjacentes
+      linha = ret->begin() + (fila[indiceVertice].front());
+      indiceVertice = linha - (ret->begin());
+      
+      // Retira o vertice da fila de prioridades
+      fila[indiceVertice].pop_front();
+    } 
+    else {
+    
+      while (find(verticesChecados.begin(),
+          verticesChecados.end(),
+          fila[indiceVertice].front()) != verticesChecados.end()){
+      
+      //checa se vertice ja esta no ciclo
+        if (verticesChecados.size()== numVertices && 
+            fila[indiceVertice].front() == verticesChecados.front()) {
+          
+          //encontrou ciclo
+          return true;
+        } 
+        else {//ciclo ainda nao encontrado
+        
+          if (fila[indiceVertice].empty()) {
+            //volta para outra combinacao sem adicionar vertice ao ciclo
+            verticesChecados.pop_back();
+          
+            linha = ret->begin() + indiceVertice -1;
+            //volta para vertice anterior
+          
+            indiceVertice = linha - (ret->begin());
+          } 
+          else {
+            // Retira o vertice da fila de prioridades
+            fila[indiceVertice].pop_front();
+            
             //Proximo vertice a verificar seus vertices adjacentes
             linha = ret->begin() + (fila[indiceVertice].front());
             indiceVertice = linha - (ret->begin());
-            // Retira o vertice da fila de prioridades
-            fila[indiceVertice].pop_front();
-        } else {
-            while (find(verticesChecados.begin(),verticesChecados.end(),fila[indiceVertice].front()) != verticesChecados.end()){//checa se vertice ja esta no ciclo
-                if (verticesChecados.size()== numVertices && fila[indiceVertice].front() == verticesChecados.front()) {//encontrou ciclo
-                    return true;
-                } else {//ciclo ainda nao encontrado
-                    if (fila[indiceVertice].empty()) {//volta para outra combinacao sem adicionar vertice ao ciclo
-                        verticesChecados.pop_back();
-                        linha = ret->begin() + indiceVertice -1;//volta para vertice anterior
-                        indiceVertice = linha - (ret->begin());
-                    } else {
-                        // Retira o vertice da fila de prioridades
-                        fila[indiceVertice].pop_front();
-                        //Proximo vertice a verificar seus vertices adjacentes
-                        linha = ret->begin() + (fila[indiceVertice].front());
-                        indiceVertice = linha - (ret->begin());
-                    }
-                }
-            }
+          }
         }
+      }
     }
-    return false;
+  }
+
+  return false;
 }

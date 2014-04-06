@@ -17,26 +17,26 @@
 
 namespace graf_bib {
 
-    class grafo : public gMatriz {
-        private:
-           unsigned int numVertices;
-           unsigned int numArestas;
-           std::vector<std::string> corVertice;
+  class grafo : public gMatriz {
+    private:
+     unsigned int numVertices;
+     unsigned int numArestas;
+     std::vector<std::string> corVertice;
 
-        public:
-            grafo(std::string arquivo);
+    public:
+      grafo(std::string arquivo);
 
-            unsigned int retNumVertices(void);
-            unsigned int retNumArestas(void);
-            Matriz retMatriz();
+      unsigned int retNumVertices(void);
+      unsigned int retNumArestas(void);
+      Matriz retMatriz();
 
-            bool completo(void);
-            Matriz completarGrafo(void);
-            std::list<int> dfs (unsigned int indiceInicial);
-            void dfs_visit(const unsigned int &indice);
-            void num_componentes (void);
-            bool hamiltoniano (void);
-    };
+      bool completo(void);
+      Matriz completarGrafo(void);
+      std::list<int> dfs (unsigned int indiceInicial);
+      void dfs_visit(const unsigned int &indice);
+      void num_componentes (void);
+      bool hamiltoniano (void);
+  };
 }
 
 #endif // GRAFO_H
