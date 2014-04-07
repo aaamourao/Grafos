@@ -128,7 +128,7 @@ graf_bib::Caminho graf_bib::grafo::bfs (unsigned int verticeInicial) {
   
   for (unsigned int vertice = 0;
       vertice < numVertices; 
-      vertice++) {
+      ++vertice) {
 
     corVertice[vertice] = "branco";
   }
@@ -176,7 +176,7 @@ graf_bib::Caminho graf_bib::grafo::dfs (unsigned int verticeInicial) {
 
   for (unsigned int vertice = 0;
       vertice < numVertices; 
-      vertice++) {
+      ++vertice) {
 
     corVertice[vertice] = "branco";
   }
@@ -211,6 +211,48 @@ void graf_bib::grafo::dfs_visit(const unsigned int &vertice,
   corVertice[vertice] = "preto";
 }
 
+graf_bib::Caminho graf_bib::grafo::dfs (Matriz mAdj,
+    unsigned int verticeInicial) {
+
+  Caminho *visitados = NULL;
+
+  for (unsigned int vertice = 0;
+      vertice < numVertices; 
+      ++vertice) {
+
+    corVertice[vertice] = "branco";
+  }
+  
+  visitados = new Caminho();
+  dfs_visit(mAdj, verticeInicial, *visitados);
+
+  return *visitados;
+}
+
+void graf_bib::grafo::dfs_visit(Matriz mAdj, const unsigned int &vertice,
+                      Caminho &visitados) {
+
+  corVertice[vertice] = "cinza";
+	
+  Matriz *ret = new Matriz(mAdj);
+  Matriz::iterator linha = ret->begin() + vertice;
+
+  visitados.push_back(vertice);
+
+  for(Linha::iterator it = linha->begin(); it != linha->end(); ++it) {
+		
+    if (*it >= 1) {
+
+      int indiceAdj = it -(linha->begin());
+
+      if (corVertice[indiceAdj] == "branco")
+        dfs_visit(mAdj, indiceAdj, visitados);
+    }
+  }
+  
+  corVertice[vertice] = "preto";
+}
+
 unsigned int graf_bib::grafo::num_componentes (void){
   
   unsigned int componentes = 0;
@@ -218,7 +260,7 @@ unsigned int graf_bib::grafo::num_componentes (void){
   
   for (unsigned int vertice = 0;
         vertice < numVertices; 
-        vertice++) {
+        ++vertice) {
 
       fifo_naoVisitados.push_back(vertice);
       corVertice[vertice] = "branco";
@@ -250,7 +292,7 @@ graf_bib::Caminho graf_bib::grafo::dijkstra(unsigned int verInicial,
   
   for (unsigned int vertice = 0;
       vertice < numVertices; 
-      vertice++) {
+      ++vertice) {
 
     queue.push_back(vertice);
     peso[vertice] = numeric_limits<unsigned int>::max(); 
@@ -409,10 +451,76 @@ bool graf_bib::grafo::hamiltoniano (void) {
   return false;
 }*/
 
-graf_bib::grafo graf_bib::grafo::kruskal(void) {
-  graf_bib::grafo *arvore;
+graf_bib::Matriz graf_bib::grafo::kruskal(void) {
+  
+  Matriz arvore;
 
-  // TODO: Implementar kruskal
+  arvore.resize(numVertices);
 
-  return *arvore;
+  list< pair<unsigned int, pair<unsigned int, unsigned int> > > queue;
+  pair<unsigned int, unsigned int> aresta;
+
+  for(Matriz::iterator linha = matrizRep.begin();
+      linha != matrizRep.end();
+      ++linha) { 
+    for(Linha::iterator it = linha->begin(); it != linha->end(); ++it) {
+      
+      arvore[it - linha->begin()].resize(numVertices, 0);
+
+      if(*it >= 1 && (linha-matrizRep.begin()) < (it-linha->begin())) { 
+        aresta = make_pair(linha - matrizRep.begin(), it - linha->begin());
+        queue.push_back(make_pair(*it, aresta));
+      }
+    }
+  }
+
+  queue.sort();
+
+
+  set<unsigned int> vertices;
+  while(!queue.empty()) {
+    
+    unsigned int peso = queue.front().first;
+    aresta = queue.front().second;
+
+    queue.pop_front();
+
+    Caminho floresta1;
+    Caminho floresta2;
+
+    floresta1 = dfs(arvore, aresta.first);
+    floresta2 = dfs(arvore, aresta.second);
+
+    bool jaConectadas = false;
+    
+    for(Caminho::iterator it1 = floresta1.begin();
+        it1 != floresta1.end();
+        ++it1) {
+      for(Caminho::iterator it2 = floresta2.begin();
+          it2 != floresta2.end();
+          ++it2) {
+
+        if(*it1 == *it2) {
+          jaConectadas = true;
+          break;
+        }
+
+      }
+
+      if(jaConectadas)
+        break;
+    }
+   
+    if(!jaConectadas) { 
+      if (arvore[aresta.first][aresta.second] == 0) {
+        arvore[aresta.first][aresta.second] = peso;
+        arvore[aresta.second][aresta.first] = peso;
+
+        vertices.insert(aresta.first);
+        vertices.insert(aresta.second);
+      }
+    }
+  }
+
+  return arvore;
 }  

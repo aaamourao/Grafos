@@ -15,6 +15,7 @@
 #include <list>
 #include <set>
 #include <map>
+#include <utility>
 
 namespace graf_bib {
 
@@ -30,7 +31,8 @@ namespace graf_bib {
           Caminho &vistados, Caminho &fifo);
       void dfs_visit(const unsigned int &indice, 
           Caminho &vistados);
-     
+      void dfs_visit(Matriz mAdj, const unsigned int &indice, 
+          Caminho &vistados);
       unsigned int extract_min(Caminho &queue);
 
     public:
@@ -45,13 +47,14 @@ namespace graf_bib {
       
       Caminho bfs(unsigned int indiceInicial);
       Caminho dfs(unsigned int indiceInicial);
+      Caminho dfs(Matriz mAdj, unsigned int indiceInicial);
       Caminho dijkstra(unsigned int verInicial, unsigned int verFinal);
       
       unsigned int num_componentes (void);
       
       bool hamiltoniano (void);
 
-      grafo kruskal(void);  
+      Matriz kruskal(void);  
   };
 }
 

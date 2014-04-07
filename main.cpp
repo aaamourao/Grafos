@@ -73,5 +73,13 @@ int main () {
 
   cout << endl << "======================" << endl << endl;
   
+  graf_bib::grafo grafo05("grafo05.txt");
+  
+  cout << "grafo 05:" << endl << endl;
+  cout << graf_bib::toString(grafo05.retMatriz()) << endl;
+  cout << "Arvore geradora minima (Kruskal) : " << endl;
+  cout  << graf_bib::toString(grafo05.kruskal()) << endl;
+
+  cout << endl << "======================" << endl << endl;
   return 0;
 }
