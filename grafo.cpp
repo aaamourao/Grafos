@@ -288,7 +288,7 @@ graf_bib::Caminho graf_bib::grafo::dijkstra(unsigned int verInicial,
   Caminho queue;
 
   set<unsigned int> verificados;
-  map<unsigned int, unsigned int > pai;
+  map<unsigned int, unsigned int > pi;
   
   for (unsigned int vertice = 0;
       vertice < numVertices; 
@@ -326,7 +326,7 @@ graf_bib::Caminho graf_bib::grafo::dijkstra(unsigned int verInicial,
 
           if(peso[indiceAdj] > *it) {
             peso[indiceAdj] = *it;
-            pai[indiceAdj] = verticeAtual;
+            pi[indiceAdj] = verticeAtual;
           }
         }
       }
@@ -340,7 +340,7 @@ graf_bib::Caminho graf_bib::grafo::dijkstra(unsigned int verInicial,
 
   while(1) {
     
-    verAtual = pai[verAtual];
+    verAtual = pi[verAtual];
     melhorcaminho.push_back(verAtual);
     
     if(verAtual == verInicial)
