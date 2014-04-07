@@ -480,7 +480,7 @@ graf_bib::Matriz graf_bib::grafo::kruskal(void) {
   
   while(!queue.empty()) {
     
-    unsigned int peso = queue.front().first;
+    unsigned int custo = queue.front().first;
     aresta = queue.front().second;
 
     queue.pop_front();
@@ -491,30 +491,17 @@ graf_bib::Matriz graf_bib::grafo::kruskal(void) {
     floresta1 = dfs(arvore, aresta.first);
     floresta2 = dfs(arvore, aresta.second);
 
+    floresta1.sort();
+    floresta2.sort();
+
     bool jaConectadas = false;
-    
-    for(Caminho::iterator it1 = floresta1.begin();
-        it1 != floresta1.end();
-        ++it1) {
-      for(Caminho::iterator it2 = floresta2.begin();
-          it2 != floresta2.end();
-          ++it2) {
-
-        if(*it1 == *it2) {
-          jaConectadas = true;
-          break;
-        }
-
-      }
-
-      if(jaConectadas)
-        break;
-    }
+    if(floresta1 == floresta2)
+      jaConectadas = true;
    
     if(!jaConectadas) { 
       if (arvore[aresta.first][aresta.second] == 0) {
-        arvore[aresta.first][aresta.second] = peso;
-        arvore[aresta.second][aresta.first] = peso;
+        arvore[aresta.first][aresta.second] = custo;
+        arvore[aresta.second][aresta.first] = custo;
 
         vertices.insert(aresta.first);
         vertices.insert(aresta.second);
