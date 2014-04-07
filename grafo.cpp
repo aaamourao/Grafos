@@ -476,8 +476,8 @@ graf_bib::Matriz graf_bib::grafo::kruskal(void) {
 
   queue.sort();
 
-
   set<unsigned int> vertices;
+  
   while(!queue.empty()) {
     
     unsigned int peso = queue.front().first;
