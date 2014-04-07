@@ -77,4 +77,5 @@ Questao 8
 Arvore geradora minima
 --
 
+.grafo 05 => Arvore geradora minima pelo algoritmo de Kruskal
  
