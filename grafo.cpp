@@ -434,7 +434,7 @@ bool graf_bib::grafo::hamiltoniano (void) {
             fila[indiceVertice].front() == verticesChecados.front()) {
 
           //encontrou ciclo
-          string ciclo;
+          string ciclo = "Ciclo de hamilton: ";
           for (int i=0; i<numVertices; i++) {
             ciclo = ciclo + to_string(verticesChecados.front()) + "->";
             verticesChecados.pop_front();
