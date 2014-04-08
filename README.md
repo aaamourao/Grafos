@@ -72,6 +72,12 @@ Questao 7
 Grafo Hamiltoniano
 --
 
+.grafo 01 => Não hamiltoniano
+
+.grafo 02 => Não hamiltoniano
+
+.grafo 06 => Hamiltoniano 
+
 Questao 8
 ==
 Arvore geradora minima
