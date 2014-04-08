@@ -33,6 +33,13 @@ int main () {
   cout << "Busca em profundidade" << endl; 
   cout << graf_bib::toString(grafo01.dfs(0)) << endl; 
   
+	if (grafo01.num_componentes() > 1){
+    cout << "Grafo com mais de um componente, logo nao hamiltoniano" <<endl;
+  } 
+	else {
+    cout << "Hamiltoniano : " << grafo01.hamiltoniano() << endl;
+  }
+	
   cout << endl << "======================" << endl << endl;
 
   graf_bib::grafo grafo02("grafo02.txt");
@@ -53,6 +60,13 @@ int main () {
   cout << graf_bib::toString(grafo02.dfs(0)) << endl; 
   cout << "Numero de componentes: " << grafo02.num_componentes() << endl;
   cout << "Dijkstra 0-7 : " << graf_bib::toString(grafo02.dijkstra(0, 7)) << endl;
+
+	if (grafo02.num_componentes() > 1){
+    cout << "Grafo com mais de um componente, logo nao hamiltoniano" <<endl;
+  } 
+	else {
+    cout << "Hamiltoniano : " << grafo02.hamiltoniano() << endl;
+  }
   
   cout << endl << "======================" << endl << endl;
  
@@ -81,5 +95,19 @@ int main () {
   cout  << graf_bib::toString(grafo05.kruskal()) << endl;
 
   cout << endl << "======================" << endl << endl;
+
+	graf_bib::grafo grafo06("grafo06.txt");
+
+  cout << "grafo 06:" << endl << endl;
+  cout << graf_bib::toString(grafo06.retMatriz()) << endl;
+
+  if (grafo06.num_componentes() > 1){
+    cout << "Grafo com mais de um componente, logo nao hamiltoniano" <<endl;
+  } 
+	else {
+    cout << "Hamiltoniano : " << grafo06.hamiltoniano() << endl;
+  }
+
+	cout << endl << "======================" << endl << endl;
   return 0;
 }

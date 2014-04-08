@@ -374,82 +374,108 @@ unsigned int graf_bib::grafo::extract_min(Caminho &queue) {
   return verticeMin;
 }
 
-/*
 bool graf_bib::grafo::hamiltoniano (void) {
-//TODO: checar se tem apenas 1 componente antes
 
-  vector< list < int > > fila;//TODO: inicializar
-  Matriz::iterator linha = ++(ret->begin());
+
+  Matriz *ret = new Matriz(matrizRep);
+  vector< list < int > > fila;
+  list < int > verticesChecados;
+  verticesChecados.push_back(0);
+  Matriz::iterator linha = ret->begin();
   int indiceVertice = 0;
+  list <int> lista;
+  bool verticeRetirado = false;
 
-  while(!fila[0].empty()) {
-      
+  // Inicializa fila
+  for(Matriz::iterator linha = ret->begin();
+        linha != ret->end();
+        ++linha) {
+    lista.clear();
     for(Linha::iterator it = linha->begin();
-      it != linha->end(); 
+      it != linha->end();
       ++it) {//itera nos vertices adjacentes
-        
-      if (*it ==1) {
+
+      if (*it ==1 && (linha - (ret->begin()) != it - (linha->begin()))) {
+
         //Adiciona os vertices adjacentes a uma fila de prioridades
-            
-        fila[indiceVertice].push_front(it - (linha->begin()));
+        lista.push_back(it - (linha->begin()));
       }
     }
+    fila.push_back(lista);
+  }
 
-    if (!(fila[indiceVertice].empty()) && 
-        find(verticesChecados.begin(),
+  while(1) {
+
+    if (fila[indiceVertice].empty()) {
+      return false;
+    }
+
+    if (find(verticesChecados.begin(),
           verticesChecados.end(),
           fila[indiceVertice].front())==verticesChecados.end()) {
-      
+
       //vertice ainda nao esta no ciclo
       //Adiciona um vertice ao ciclo de hamilton
       verticesChecados.push_back(fila[indiceVertice].front());
-      
       //Proximo vertice a verificar seus vertices adjacentes
       linha = ret->begin() + (fila[indiceVertice].front());
-      indiceVertice = linha - (ret->begin());
-      
       // Retira o vertice da fila de prioridades
       fila[indiceVertice].pop_front();
-    } 
+      indiceVertice = linha - (ret->begin());
+    }
     else {
-    
+
       while (find(verticesChecados.begin(),
           verticesChecados.end(),
           fila[indiceVertice].front()) != verticesChecados.end()){
-      
+
       //checa se vertice ja esta no ciclo
-        if (verticesChecados.size()== numVertices && 
+        if (verticesChecados.size()== numVertices &&
             fila[indiceVertice].front() == verticesChecados.front()) {
-          
+
           //encontrou ciclo
           return true;
-        } 
-        else {//ciclo ainda nao encontrado
-        
-          if (fila[indiceVertice].empty()) {
-            //volta para outra combinacao sem adicionar vertice ao ciclo
-            verticesChecados.pop_back();
-          
-            linha = ret->begin() + indiceVertice -1;
-            //volta para vertice anterior
-          
-            indiceVertice = linha - (ret->begin());
-          } 
-          else {
+        } else {
+
             // Retira o vertice da fila de prioridades
             fila[indiceVertice].pop_front();
-            
-            //Proximo vertice a verificar seus vertices adjacentes
-            linha = ret->begin() + (fila[indiceVertice].front());
-            indiceVertice = linha - (ret->begin());
-          }
+            if (fila[indiceVertice].empty()) {
+
+                //volta para vertice anterior
+                verticesChecados.pop_back();
+                // Adiciona vertices adjacentes novamente
+                for(Linha::iterator it = linha->begin();
+                    it != linha->end();
+                    ++it) {//itera nos vertices adjacentes
+
+                    if (*it ==1 && (linha - (ret->begin()) != it - (linha->begin()))) {
+                        fila[indiceVertice].push_back(it - (linha->begin()));
+                    }
+                }
+                linha = ret->begin() + verticesChecados.back();
+                verticeRetirado = true;
+                break;
+            } else {
+
+                //Proximo vertice a verificar seus vertices adjacentes
+                linha = ret->begin() + (fila[indiceVertice].front());
+
+            }
+
         }
+
       }
+      if (!verticeRetirado) {
+        verticesChecados.push_back(fila[indiceVertice].front());
+        fila[indiceVertice].pop_front();
+        linha = ret->begin() + verticesChecados.back();
+      }
+      verticeRetirado = false;
+      indiceVertice = linha - (ret->begin());
     }
   }
-
   return false;
-}*/
+}
 
 graf_bib::Matriz graf_bib::grafo::kruskal(void) {
   

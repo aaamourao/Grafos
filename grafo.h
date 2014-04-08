@@ -1,6 +1,6 @@
 /**
  *
- * Trabalho 01 - Algoritmos com grafos
+ * Trabalho 02 - Algoritmos com grafos
  *
  * Adriano de Araujo Abreu Mourao (mourao.aaa at gmail.com)
  * Tamires Vargas Capanema Franco Santos (tamiresvargas at hotmail.com)
