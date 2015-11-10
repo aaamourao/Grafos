@@ -17,7 +17,7 @@
 
 namespace graf_bib {
 
-    typedef std::vector<std::vector<int>> Matriz;
+    typedef std::vector<std::vector<int> > Matriz;
     typedef std::vector<int> Linha;
     typedef std::list<unsigned int> Caminho;
 
