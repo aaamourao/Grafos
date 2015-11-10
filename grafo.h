@@ -19,43 +19,43 @@
 
 namespace graf_bib {
 
-  class grafo : public gMatriz {
-    private:
-      unsigned int numVertices;
-      unsigned int numArestas;
-     
-      std::vector<std::string> corVertice;
-      std::map<unsigned int, unsigned int> peso;
-     
-      void bfs_visit(const unsigned int &indice, 
-          Caminho &vistados, Caminho &fifo);
-      void dfs_visit(const unsigned int &indice, 
-          Caminho &vistados);
-      void dfs_visit(Matriz mAdj, const unsigned int &indice, 
-          Caminho &vistados);
-      unsigned int extract_min(Caminho &queue);
+    class grafo : public gMatriz {
+        private:
+            unsigned int numVertices;
+            unsigned int numArestas;
 
-    public:
-      grafo(std::string arquivo);
+            std::vector<std::string> corVertice;
+            std::map<unsigned int, unsigned int> peso;
 
-      unsigned int retNumVertices(void);
-      unsigned int retNumArestas(void);
-      Matriz retMatriz();
+            void bfs_visit(const unsigned int &indice, 
+                    Caminho &vistados, Caminho &fifo);
+            void dfs_visit(const unsigned int &indice, 
+                    Caminho &vistados);
+            void dfs_visit(Matriz mAdj, const unsigned int &indice, 
+                    Caminho &vistados);
+            unsigned int extract_min(Caminho &queue);
 
-      bool completo(void);
-      Matriz completarGrafo(void);
-      
-      Caminho bfs(unsigned int indiceInicial);
-      Caminho dfs(unsigned int indiceInicial);
-      Caminho dfs(Matriz mAdj, unsigned int indiceInicial);
-      Caminho dijkstra(unsigned int verInicial, unsigned int verFinal);
-      
-      unsigned int num_componentes (void);
-      
-      bool hamiltoniano (void);
+        public:
+            grafo(std::string arquivo);
 
-      Matriz kruskal(void);  
-  };
+            unsigned int retNumVertices(void);
+            unsigned int retNumArestas(void);
+            Matriz retMatriz();
+
+            bool completo(void);
+            Matriz completarGrafo(void);
+
+            Caminho bfs(unsigned int indiceInicial);
+            Caminho dfs(unsigned int indiceInicial);
+            Caminho dfs(Matriz mAdj, unsigned int indiceInicial);
+            Caminho dijkstra(unsigned int verInicial, unsigned int verFinal);
+
+            unsigned int num_componentes (void);
+
+            bool hamiltoniano (void);
+
+            Matriz kruskal(void);  
+            };
 }
 
 #endif // GRAFO_H
